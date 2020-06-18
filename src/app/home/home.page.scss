@@ -1,27 +1,23 @@
+$primary: #607D8B;
+$secoundry: #e91e63;
+
 #container {
-  text-align: center;
-
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  margin: 10px auto;
 }
-
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+.custom-header{
+  font-size: 18px;
+  padding-left: 6px;
+  margin-bottom: 5px;
+  color: $primary;
+  font-weight: 400;
 }
-
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-
-  color: #8c8c8c;
-
-  margin: 0;
-}
-
-#container a {
-  text-decoration: none;
+.sub_header{
+  flex-grow: initial;
+  .points{
+    color: $secoundry;
+    margin-right: 10px;
+  }
+  ion-icon{
+    margin-right: 5px;
+  }
 }

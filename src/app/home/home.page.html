@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Score Card
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,12 +9,47 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title size="large">Score Card</ion-title>
     </ion-toolbar>
   </ion-header>
 
   <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <ion-grid *ngIf="scorecard">
+      <ion-row>
+        <ion-col class="custom-header"> Score Table</ion-col>
+      </ion-row>
+      <ion-row *ngFor="let item of scorecard[0].scorecard;let i=index">
+        <ion-col>
+          <mat-accordion>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{ i + 1 }}
+                </mat-panel-title>
+                <mat-panel-title>
+                  {{item.topic}}
+                </mat-panel-title>
+                <mat-panel-description class="sub_header">
+                 <span class="points">
+                   <ion-icon name="flower"></ion-icon>{{item.total_score}}
+                  </span> 
+                 <ion-icon name="calendar"></ion-icon>{{item.short_date}} 
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+          
+              <!-- <mat-form-field>
+                
+              </mat-form-field> -->
+              <ion-item *ngFor="let qtn of item.question_answers">
+                <ion-label class="ion-text-wrap">
+                  {{qtn.questions}}
+                </ion-label>
+              </ion-item>
+          
+            </mat-expansion-panel>
+          </mat-accordion> 
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </div>
 </ion-content>
