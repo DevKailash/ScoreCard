@@ -15,9 +15,15 @@
 
   <div id="container">
     <ion-grid *ngIf="scorecard">
-      <ion-row>
+      <ion-row class="table_header">
         <ion-col class="custom-header"> Score Table</ion-col>
       </ion-row>
+      <!-- <ion-row class="table_header">
+        <ion-col size="2">SL</ion-col>
+        <ion-col size="3">Name</ion-col>
+        <ion-col size="2">Point</ion-col>
+        <ion-col size="2">Date</ion-col>
+      </ion-row> -->
       <ion-row *ngFor="let item of scorecard[0].scorecard;let i=index">
         <ion-col>
           <mat-accordion>
