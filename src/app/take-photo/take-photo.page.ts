@@ -43,6 +43,7 @@ export class TakePhotoPage implements OnInit {
     this.imageUrl = '';
     const options: CameraOptions = {
       quality: 50,
+      saveToPhotoAlbum: true,
       destinationType: this.camera.DestinationType.FILE_URI,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
