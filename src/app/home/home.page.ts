@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { ApiService } from '../services/api.service'
+import { ApiService } from '../services/api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +10,7 @@ import { ApiService } from '../services/api.service'
 export class HomePage {
   scorecard:any;
   you_scrored:any;
-  constructor(private api:ApiService) {}
+  constructor(private api:ApiService, private router: Router) {}
   ngOnInit(){
     this.getScore();
     console.log("calling api");
@@ -28,5 +29,8 @@ export class HomePage {
        });
        console.log(this.scorecard);
      } );
+ }
+ navigate(){
+    this.router.navigate(['/takePhoto'])
  }
 }

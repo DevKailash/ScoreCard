@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Take Photo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="flexCenter">
+    <button mat-fab color="primary" (click)="accessCamera()" aria-label="take photo">
+      <span class="material-icons">
+        add_a_photo
+      </span>
+    </button>
+  </div>
+  <mat-card>
+    <div *ngIf="!imageUrl">No data available</div>
+    <img *ngIf="imageUrl" [src]="imageUrl" width="100px">
+  </mat-card>
+  
+</ion-content>

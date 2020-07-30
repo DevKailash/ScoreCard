@@ -1,8 +1,16 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <!-- <ion-toolbar>
     <ion-title>
       Score Card
     </ion-title>
+  </ion-toolbar> -->
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="navigate()">
+        <ion-icon slot="icon-only" name="camera"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Score </ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -50,6 +58,9 @@
                 <ion-label class="ion-text-wrap">
                   {{qtn.questions}}
                 </ion-label>
+                <span class="points">
+                  {{qtn.points}} <ion-icon name="flower"></ion-icon>
+                </span> 
               </ion-item>
           
             </mat-expansion-panel>
