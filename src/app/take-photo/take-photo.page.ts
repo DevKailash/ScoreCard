@@ -14,12 +14,24 @@ export class TakePhotoPage implements OnInit {
   constructor(private camera: Camera, private file: File) { }
 
   ngOnInit() {
-    this.storedDetails = JSON.parse(window.localStorage.getItem("storedImg"));
+    this.storedDetails = this.getStoredDetails();
+    try{
     this.imageUrl = (<any>window).Ionic.WebView.convertFileSrc(this.storedDetails.url+this.storedDetails.name); 
+    }catch{
+
+    }
+  }
+  async getStoredDetails(){
+    try{
+      return JSON.parse(window.localStorage.getItem("storedImg"));
+    }catch{
+
+    }
   }
 // After take picture close and reopen the application also will remove the already take picture.
   async accessCamera(){
     console.log("Accessing camera!");
+    this.storedDetails = this.getStoredDetails();
     if(this.storedDetails){
       this.deleteImg(this.storedDetails.url,this.storedDetails.name);
     }else{
