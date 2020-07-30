@@ -15,18 +15,13 @@ export class TakePhotoPage implements OnInit {
 
   async ngOnInit() {
     this.storedDetails = await this.getStoredDetails();
-    try{
-      this.imageUrl = (<any>window).Ionic.WebView.convertFileSrc(this.storedDetails.url+this.storedDetails.name); 
-    }catch{
-
+    if(this.storedDetails){
+      this.imageUrl = (<any>window).Ionic.WebView.convertFileSrc(this.storedDetails.url+this.storedDetails.name);
     }
   }
   async getStoredDetails(){
     try{
-      let data = JSON.parse(window.localStorage.getItem("storedImg"));
-      setTimeout(()=>{
-        return data;
-      },500);
+      return await JSON.parse(window.localStorage.getItem("storedImg"));
     }catch{
 
     }
@@ -35,7 +30,7 @@ export class TakePhotoPage implements OnInit {
   async accessCamera(){
     console.log("Accessing camera!");
     this.storedDetails = await this.getStoredDetails();
-    alert(JSON.stringify(this.storedDetails));
+    alert("accessCamera::"+JSON.stringify(this.storedDetails));
     if(this.storedDetails){
       this.deleteImg(this.storedDetails.url,this.storedDetails.name);
     }else{
@@ -60,6 +55,7 @@ export class TakePhotoPage implements OnInit {
     const dataDirectoryPath = this.file.dataDirectory;
     // moveDir(path, dirName, newPath, newDirName)
     await this.file.moveDir(tempImgPath, tempFilename, dataDirectoryPath, tempFilename);
+    alert(dataDirectoryPath+tempFilename);
     let storedPhoto = {
       url: dataDirectoryPath,
       name: tempFilename
