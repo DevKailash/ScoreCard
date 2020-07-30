@@ -12,7 +12,6 @@ import { WebView } from '@ionic-native/ionic-webview/ngx';
 export class TakePhotoPage implements OnInit {
   imageUrl:any;
   storedDetails:any;
-  // storedPhoto:any;
   constructor(private camera: Camera, 
     private file: File,
     private sanitizer: DomSanitizer,
@@ -30,7 +29,6 @@ export class TakePhotoPage implements OnInit {
 // After take picture close and reopen the application also will remove the already take picture.
   async accessCamera(){
     this.storedDetails = window.localStorage.getItem("storedImg");
-    alert("access check::"+JSON.stringify(this.storedDetails));
     if(this.storedDetails){
       this.storedDetails = JSON.parse(this.storedDetails);
       this.deleteImg(this.storedDetails.url,this.storedDetails.name);
@@ -39,6 +37,7 @@ export class TakePhotoPage implements OnInit {
     }    
   }
   async openCamera(){
+    //open camera and take picture
     this.imageUrl = '';
     const options: CameraOptions = {
       quality: 50,
@@ -59,20 +58,16 @@ export class TakePhotoPage implements OnInit {
           }
           window.localStorage.setItem("storedImg",JSON.stringify(storedPhoto));
     }, (err) => {
-    });
-
-    // const dataDirectoryPath = this.file.dataDirectory;
-    
-
+    }); 
   }
   viewImg(path){
+    //view file uri image
     const resolvedImg = this.webview.convertFileSrc(path);
     this.imageUrl = this.sanitizer.bypassSecurityTrustUrl(resolvedImg);
   }
   deleteImg(filepath, fileName) {
     // Removing img from application catch;
     this.file.removeFile(filepath, fileName);
-    // alert("deleteImg");
     this.openCamera();
   }
 
