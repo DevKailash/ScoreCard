@@ -17,9 +17,9 @@
   </div>
   <mat-card>
     <div *ngIf="!imageUrl">No data available</div>
-    <img *ngIf="imageUrl" [src]="imageUrl.pic" style="width: auto;">
+    <img *ngIf="imageUrl" [src]="imageUrl" style="width: auto;">
     <p  *ngIf="imageUrl">Before ion-img</p>
-    <ion-img *ngIf="imageUrl" [src]="imageUrl.pic"></ion-img>
+    <ion-img *ngIf="imageUrl" [src]="imageUrl"></ion-img>
   </mat-card>
   
 </ion-content>
