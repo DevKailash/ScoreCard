@@ -54,9 +54,7 @@ export class TakePhotoPage implements OnInit {
     const tempImgPath = tempImage.substr(0, tempImage.lastIndexOf('/') + 1);
 
     const dataDirectoryPath = this.file.dataDirectory;
-    // moveDir(path, dirName, newPath, newDirName)
     await this.file.moveDir(tempImgPath, tempFilename, dataDirectoryPath, tempFilename);
-    alert(dataDirectoryPath+tempFilename);
     let storedPhoto = {
       url: dataDirectoryPath,
       name: tempFilename
