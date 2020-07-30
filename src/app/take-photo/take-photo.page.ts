@@ -14,13 +14,10 @@ export class TakePhotoPage implements OnInit {
   constructor(private camera: Camera, private file: File) { }
 
   ngOnInit() {
-    try {
-      this.storedDetails = JSON.parse(window.localStorage.getItem("storedImg"));
-    } catch (error) {
-      console.error(error);
-    }
+    this.storedDetails = window.localStorage.getItem("storedImg");
     if(this.storedDetails){
-      this.file.readAsDataURL(this.storedDetails.url, this.storedDetails.url).then(res=>{
+      this.storedDetails = JSON.parse(this.storedDetails);
+      this.file.readAsDataURL(this.storedDetails.url, this.storedDetails.name).then(res=>{
         this.imageUrl.pic = res;
       });
       // this.imageUrl = (<any>window).Ionic.WebView.convertFileSrc();
@@ -28,13 +25,10 @@ export class TakePhotoPage implements OnInit {
   }
 // After take picture close and reopen the application also will remove the already take picture.
   async accessCamera(){
-    try {
-      this.storedDetails = JSON.parse(window.localStorage.getItem("storedImg"));
-    } catch (error) {
-      console.error(error);
-    }
+    this.storedDetails = window.localStorage.getItem("storedImg");
     alert("access check::"+JSON.stringify(this.storedDetails));
     if(this.storedDetails){
+      this.storedDetails = JSON.parse(this.storedDetails);
       this.deleteImg(this.storedDetails.url,this.storedDetails.name);
     }else{
       this.openCamera();
@@ -71,10 +65,9 @@ export class TakePhotoPage implements OnInit {
   }
   deleteImg(filepath, fileName) {
     // Removing img from application catch;
-    this.file.removeFile(filepath, fileName).then(()=>{
-      alert("image deleted");
-      this.openCamera();
-    });
+    this.file.removeFile(filepath, fileName);
+    alert("deleteImg");
+    this.openCamera();
   }
 
 }
