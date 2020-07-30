@@ -20,7 +20,10 @@ export class TakePhotoPage implements OnInit {
       console.error(error);
     }
     if(this.storedDetails){
-      this.imageUrl = (<any>window).Ionic.WebView.convertFileSrc(this.storedDetails.url+this.storedDetails.name);
+      this.file.readAsDataURL(this.storedDetails.url, this.storedDetails.url).then(res=>{
+        this.imageUrl.pic = res;
+      });
+      // this.imageUrl = (<any>window).Ionic.WebView.convertFileSrc();
     }
   }
 // After take picture close and reopen the application also will remove the already take picture.
@@ -30,7 +33,7 @@ export class TakePhotoPage implements OnInit {
     } catch (error) {
       console.error(error);
     }
-    alert("accessCamera check::"+JSON.stringify(this.storedDetails));
+    alert("access check::"+JSON.stringify(this.storedDetails));
     if(this.storedDetails){
       this.deleteImg(this.storedDetails.url,this.storedDetails.name);
     }else{
@@ -47,20 +50,23 @@ export class TakePhotoPage implements OnInit {
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
     }
-    const tempImage = await this.camera.getPicture(options);
-    this.imageUrl = tempImage;
-    const tempFilename = tempImage.substr(tempImage.lastIndexOf('/') + 1);
-    console.log(tempFilename);
-    const tempImgPath = tempImage.substr(0, tempImage.lastIndexOf('/') + 1);
+    this.camera.getPicture(options).then((imageData) => {
 
-    const dataDirectoryPath = this.file.dataDirectory;
-    await this.file.moveDir(tempImgPath, tempFilename, dataDirectoryPath, tempFilename);
-    let storedPhoto = {
-      url: dataDirectoryPath,
-      name: tempFilename
-    }
-    this.imageUrl = (<any>window).Ionic.WebView.convertFileSrc(dataDirectoryPath+tempFilename);
-    window.localStorage.setItem("storedImg",JSON.stringify(storedPhoto));
+        var filename = imageData.substring(imageData.lastIndexOf('/')+1);
+        var path =  imageData.substring(0,imageData.lastIndexOf('/')+1);
+          this.file.readAsDataURL(path, filename).then(res=>{
+            this.imageUrl.pic = res;
+          });
+          let storedPhoto = {
+            url: path,
+            name: filename
+          }
+          window.localStorage.setItem("storedImg",JSON.stringify(storedPhoto));
+    }, (err) => {
+    });
+
+    // const dataDirectoryPath = this.file.dataDirectory;
+    
 
   }
   deleteImg(filepath, fileName) {
