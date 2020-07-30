@@ -16,14 +16,17 @@ export class TakePhotoPage implements OnInit {
   ngOnInit() {
     this.storedDetails = this.getStoredDetails();
     try{
-    this.imageUrl = (<any>window).Ionic.WebView.convertFileSrc(this.storedDetails.url+this.storedDetails.name); 
+      this.imageUrl = (<any>window).Ionic.WebView.convertFileSrc(this.storedDetails.url+this.storedDetails.name); 
     }catch{
 
     }
   }
   async getStoredDetails(){
     try{
-      return JSON.parse(window.localStorage.getItem("storedImg"));
+      let data = JSON.parse(window.localStorage.getItem("storedImg"));
+      setTimeout(()=>{
+        return data;
+      },500);
     }catch{
 
     }
@@ -32,6 +35,7 @@ export class TakePhotoPage implements OnInit {
   async accessCamera(){
     console.log("Accessing camera!");
     this.storedDetails = this.getStoredDetails();
+    alert(JSON.stringify(this.storedDetails));
     if(this.storedDetails){
       this.deleteImg(this.storedDetails.url,this.storedDetails.name);
     }else{
