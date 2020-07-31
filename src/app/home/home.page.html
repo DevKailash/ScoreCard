@@ -1,14 +1,12 @@
 <ion-header [translucent]="true">
-  <!-- <ion-toolbar>
-    <ion-title>
-      Score Card
-    </ion-title>
-  </ion-toolbar> -->
   <ion-toolbar>
     <ion-buttons slot="end">
-      <ion-button (click)="navigate()">
+      <!-- <ion-button (click)="navigate()">
         <ion-icon slot="icon-only" name="camera"></ion-icon>
-      </ion-button>
+      </ion-button> -->
+      <!-- <ion-button >
+        <ion-icon slot="icon-only" name="power-outline"></ion-icon>
+      </ion-button> -->
     </ion-buttons>
     <ion-title>Score </ion-title>
   </ion-toolbar>
@@ -50,10 +48,7 @@
                  <ion-icon name="calendar"></ion-icon>{{item.short_date}} 
                 </mat-panel-description>
               </mat-expansion-panel-header>
-          
-              <!-- <mat-form-field>
-                
-              </mat-form-field> -->
+              
               <ion-item *ngFor="let qtn of item.question_answers">
                 <ion-label class="ion-text-wrap">
                   {{qtn.questions}}
@@ -62,11 +57,24 @@
                   {{qtn.points}} <ion-icon name="flower"></ion-icon>
                 </span> 
               </ion-item>
-          
+      
             </mat-expansion-panel>
           </mat-accordion> 
         </ion-col>
       </ion-row>
     </ion-grid>
   </div>
+  <ion-tabs>
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button tab="camera" (click)="navigate()">
+        <ion-icon name="camera-outline"></ion-icon>
+        <ion-label>camera</ion-label>
+      </ion-tab-button>
+  
+      <ion-tab-button tab="logOut" (click)="logOut()">
+        <ion-icon name="power-outline"></ion-icon>
+        <ion-label>LogOut</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
 </ion-content>

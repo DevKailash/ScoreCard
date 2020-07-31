@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { Router } from '@angular/router';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-home',
@@ -10,27 +11,31 @@ import { Router } from '@angular/router';
 export class HomePage {
   scorecard:any;
   you_scrored:any;
-  constructor(private api:ApiService, private router: Router) {}
+  constructor(private api:ApiService, private router: Router,  private AngAuth:AngularFireAuth) {}
   ngOnInit(){
     this.getScore();
     console.log("calling api");
   }
   async getScore() {
-    await this.api.getscorecard('scorecard')
-     .subscribe((res: any) =>{
-       let response:any;
-       response = JSON.parse(res);
-       if(response.status == 200){
-        this.scorecard = Array.of(response.data);
-       }
-       this.scorecard[0].scorecard.forEach(element => {
-        //  console.log(element);
-         element.question_answers =  Object.values(element.question_answers);
-       });
-       console.log(this.scorecard);
-     } );
- }
- navigate(){
-    this.router.navigate(['/takePhoto'])
- }
+      await this.api.getscorecard('scorecard')
+      .subscribe((res: any) =>{
+        let response:any;
+        response = JSON.parse(res);
+        if(response.status == 200){
+          this.scorecard = Array.of(response.data);
+        }
+        this.scorecard[0].scorecard.forEach(element => {
+          element.question_answers =  Object.values(element.question_answers);
+        });
+        console.log(this.scorecard);
+      } );
+  }
+  navigate(){
+      this.router.navigate(['/takePhoto']);
+  }
+  async logOut(){
+    await this.AngAuth.signOut()
+    .then((res: any) => console.log(res))
+    .catch((error: any) => console.error(error));
+  }
 }

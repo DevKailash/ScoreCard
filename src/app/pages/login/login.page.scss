@@ -1,0 +1,61 @@
+$white-color: #fff;
+$height100: 100%;
+$dark-color: rgb(16, 49, 62);
+@mixin flexCenter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+ion-grid {
+    width:100%;
+    height: $height100;
+    background: $dark-color;
+    ion-row {
+        height: $height100;
+        ion-col {
+            ion-card{
+                padding: 5px;
+                ion-card-header{
+                    display: flex;
+                    justify-content: center;
+                    div{
+                        width: 60px;
+                        height: 60px;
+                        background-color: $dark-color;
+                        border-radius: 50px;
+                        color: $white-color;
+                        font-size: 30px;
+                        @include flexCenter;
+                    }
+                }
+                ion-item{
+                    margin: 16px 0px;
+                }
+                .welcome{
+                    div{
+                        text-align: center;
+                        font-size: 21px;
+                        font-weight: 500;
+                        line-height: 4;
+                    }
+                }
+            }
+            ion-button {
+                font-weight: 300;
+                margin-top: 54px;                
+            }
+        }
+    }
+}
+
+@media (min-width: 240px) and (max-width: 768px) {
+    ion-grid {
+        background: $white-color;
+        ion-col {
+            border: none;
+            ion-card{
+                box-shadow: none !important;
+            }
+        }
+    }
+}
