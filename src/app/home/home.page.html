@@ -1,38 +1,29 @@
-<ion-header [translucent]="true">
+<!-- <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="end">
-      <!-- <ion-button (click)="navigate()">
-        <ion-icon slot="icon-only" name="camera"></ion-icon>
-      </ion-button> -->
-      <!-- <ion-button >
-        <ion-icon slot="icon-only" name="power-outline"></ion-icon>
-      </ion-button> -->
+      <ion-button  (click)="logOut()">
+        <ion-icon slot="icon-only" name="power-outline" ></ion-icon>
+      </ion-button>
     </ion-buttons>
-    <ion-title>Score </ion-title>
+    <ion-title>Dashboard</ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
-<ion-content [fullscreen]="true">
+<!-- <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Score Card</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
+  <div id="container" *ngIf="isScore">
     <ion-grid *ngIf="scorecard">
       <ion-row class="table_header">
         <ion-col class="custom-header"> Score Table</ion-col>
       </ion-row>
-      <!-- <ion-row class="table_header">
-        <ion-col size="2">SL</ion-col>
-        <ion-col size="3">Name</ion-col>
-        <ion-col size="2">Point</ion-col>
-        <ion-col size="2">Date</ion-col>
-      </ion-row> -->
       <ion-row *ngFor="let item of scorecard[0].scorecard;let i=index">
         <ion-col>
-          <mat-accordion>
+          <mat-accordion class="zIndex">
             <mat-expansion-panel>
               <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -64,17 +55,23 @@
       </ion-row>
     </ion-grid>
   </div>
-  <ion-tabs>
-    <ion-tab-bar slot="bottom">
-      <ion-tab-button tab="camera" (click)="navigate()">
-        <ion-icon name="camera-outline"></ion-icon>
-        <ion-label>camera</ion-label>
-      </ion-tab-button>
-  
-      <ion-tab-button tab="logOut" (click)="logOut()">
-        <ion-icon name="power-outline"></ion-icon>
-        <ion-label>LogOut</ion-label>
-      </ion-tab-button>
-    </ion-tab-bar>
-  </ion-tabs>
-</ion-content>
+  <div *ngIf="isWeather">
+
+  </div>
+</ion-content> -->
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="one" (click)="changeTemplate('weather')">
+      <ion-icon name="thunderstorm-outline"></ion-icon>
+      <ion-label>Weather</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="two">
+      <ion-icon name="camera-outline"></ion-icon>
+      <ion-label>Camera</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="three" (click)="changeTemplate('score')">
+      <ion-icon name="flame-outline"></ion-icon>
+      <ion-label>Score</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

@@ -3,16 +3,8 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'login',
-    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
-  },
-  {
     path: 'home',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
-  },
-  {
-    path: 'takePhoto',
-    loadChildren: () => import('./take-photo/take-photo.module').then( m => m.TakePhotoPageModule)
   },
   {
     path: '',
@@ -20,12 +12,13 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'take-photo',
-    loadChildren: () => import('./take-photo/take-photo.module').then( m => m.TakePhotoPageModule)
-  },
-  {
     path: 'login',
     loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'weather',
+    // outlet: 'one',
+    loadChildren: () => import('./weather/weather.module').then( m => m.WeatherPageModule)
   },
 ];
 

@@ -1,0 +1,32 @@
+$white-color: #fff;
+$height100: 100%;
+$dark-color: #303644;
+@mixin flexCenter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.shape{
+    clip-path: polygon(20% 0%, 80% 0%, 100% 0, 100% 100%, 60% 91%, 29% 78%, 0 50%, 0 0);
+
+    height: 350px;
+    background-color: $dark-color;
+    color: $white-color;
+}
+.mycard{
+    .shapeDetails{
+        text-align: center;
+        padding: 15px;
+        line-height: 1.5;
+        position: relative;
+        .today{
+            font-size: 20px;
+        }
+        .temp_celcius{
+            font-size: 78px;
+        }
+        ion-icon{
+            font-size: 55px;
+        }
+    }
+}

@@ -18,8 +18,7 @@ import { MaterialModule } from './material.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { environment } from 'src/environments/environment';
-
-
+import { AngularFireAnalyticsModule, UserTrackingService } from '@angular/fire/analytics';
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,8 +30,9 @@ import { environment } from 'src/environments/environment';
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
+    AngularFireAnalyticsModule
   ],
   providers: [
     StatusBar,
@@ -40,7 +40,8 @@ import { environment } from 'src/environments/environment';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     Camera,
     File,
-    WebView
+    WebView,
+    UserTrackingService
   ],
   bootstrap: [AppComponent]
 })

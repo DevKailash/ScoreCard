@@ -4,7 +4,7 @@
       <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
         <ion-card>
           <div class="welcome" padding>
-            <div>Welcome Back!</div>
+            <div>Welcome!</div>
           </div>
           
           <ion-card-header>
@@ -14,10 +14,10 @@
           <ion-card-content>
             
             <mat-tab-group [selectedIndex]="0" mat-align-tabs="center">
-              <mat-tab label="LogIn" [active]="true"> 
+              <mat-tab label="LogIn"> 
                 <div padding>
                   <ion-item >
-                    <ion-input color="dark" type="text" placeholder="Username" [(ngModel)]="user.email" (ionChange)='onChangeTime($event.target.value)'></ion-input>
+                    <ion-input color="dark" type="email" placeholder="Username" [(ngModel)]="user.email" (ionChange)='onChangeTime($event.target.value)'></ion-input>
                   </ion-item>
                   <ion-item >
                     <ion-input color="dark" [type]="getType()" placeholder="Password" [(ngModel)]="user.password" (ionChange)='onChangeTime($event.target.value)'></ion-input>
@@ -32,11 +32,13 @@
               <mat-tab label="Register"> 
                 <div padding>
                   <ion-item >
-                    <ion-input color="dark" type="text" placeholder="Username" [(ngModel)]="register.email" (ionChange)='onChangeTime($event.target.value)'></ion-input>
+                    <ion-input color="dark" type="email" placeholder="Username" [(ngModel)]="register.email"></ion-input>
                   </ion-item>
                   <ion-item >
-                    <ion-input color="dark" [type]="getType()" placeholder="Password" [(ngModel)]="register.password" (ionChange)='onChangeTime($event.target.value)'></ion-input>
-                    <ion-icon name="eye" item-right (click)="toggleTextPassword()"></ion-icon>
+                    <ion-input color="dark" type="password" placeholder="Password" [(ngModel)]="register.password"></ion-input>
+                  </ion-item>
+                  <ion-item >
+                    <ion-input color="dark" type="password" placeholder="Re-password" [(ngModel)]="register.repassword"></ion-input>
                   </ion-item>
                 </div>
                 <div padding>

@@ -1,8 +1,12 @@
 $primary: #607D8B;
 $secoundry: #e91e63;
+$white-color: #fff;
+$height100: 100%;
+$dark-color: #303644;
 
 #container {
   margin: 10px auto;
+  padding: 15px;
 }
 .custom-header{
   font-size: 18px;
@@ -22,5 +26,18 @@ $secoundry: #e91e63;
   }
   ion-icon{
     margin-right: 5px;
+  }
+}
+.zIndex{
+  z-index: 100000;
+}
+.tabs-inner ion-router-outlet{
+  display: none;
+}
+ion-tab-bar{
+  background-color: $dark-color;
+  ion-tab-button{
+    background: transparent;
+    color: white;
   }
 }

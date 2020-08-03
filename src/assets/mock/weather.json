@@ -1,0 +1,79 @@
+{
+    "success": true,
+    "status": 200,
+    "data": {
+        "weather": [
+            {
+                "city": "bangalore",
+                "weatherP": 28,
+                "weather": "Sunny",
+                "date": "02nd Nov",
+                "min": "14",
+                "max": 30
+            },
+            {
+                "city": "coimbatore",
+                "weatherP": 20,
+                "weather": "Clouds",
+                "date": "02nd Nov",
+                "min": "14",
+                "max": 20
+            },
+            {
+                "city": "kerala",
+                "weatherP": 25,
+                "weather": "Thunderstorm",
+                "date": "02nd Nov",
+                "min": "14",
+                "max": 18
+            },
+            {
+                "city": "erode",
+                "weatherP": 20,
+                "weather": "Haze",
+                "date": "02nd Nov",
+                "min": "14",
+                "max": 20
+            },
+            {
+                "city": "delhi",
+                "weatherP": 40,
+                "weather": "sunny",
+                "date": "02nd Nov",
+                "min": "20",
+                "max": 42
+            },
+            {
+                "city": "Chennai",
+                "weatherP": 20,
+                "weather": "Mist",
+                "date": "02nd Nov",
+                "min": "20",
+                "max": 22
+            },
+            {
+                "city": "Pune",
+                "weatherP": 40,
+                "weather": "sunny",
+                "date": "02nd Nov",
+                "min": "20",
+                "max": 42
+            },{
+                "city": "Nagpur",
+                "weatherP": 40,
+                "weather": "sunny",
+                "date": "02nd Nov",
+                "min": "20",
+                "max": 42
+            },
+            {
+                "city": "Kochi",
+                "weatherP": 40,
+                "weather": "sunny",
+                "date": "02nd Nov",
+                "min": "20",
+                "max": 42
+            }
+        ]
+    }
+}

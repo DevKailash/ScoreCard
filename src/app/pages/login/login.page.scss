@@ -1,6 +1,6 @@
 $white-color: #fff;
 $height100: 100%;
-$dark-color: rgb(16, 49, 62);
+$dark-color: #303644;
 @mixin flexCenter {
     display: flex;
     align-items: center;
@@ -34,7 +34,7 @@ ion-grid {
                 .welcome{
                     div{
                         text-align: center;
-                        font-size: 21px;
+                        font-size: 28px;
                         font-weight: 500;
                         line-height: 4;
                     }
@@ -47,7 +47,12 @@ ion-grid {
         }
     }
 }
-
+.my-custom-class {
+    --background: #222;
+    --spinner-color: #fff;
+  
+    color: #fff;
+}
 @media (min-width: 240px) and (max-width: 768px) {
     ion-grid {
         background: $white-color;

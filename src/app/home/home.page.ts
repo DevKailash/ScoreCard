@@ -11,6 +11,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 export class HomePage {
   scorecard:any;
   you_scrored:any;
+  isWeather = true;
+  isScore = false;
   constructor(private api:ApiService, private router: Router,  private AngAuth:AngularFireAuth) {}
   ngOnInit(){
     this.getScore();
@@ -37,5 +39,15 @@ export class HomePage {
     await this.AngAuth.signOut()
     .then((res: any) => console.log(res))
     .catch((error: any) => console.error(error));
+  }
+  changeTemplate(name){
+    if(name == 'score'){
+      this.isScore = true;
+      this.isWeather = false;
+    }
+    if(name == 'weather'){
+      this.isWeather = true;
+      this.isScore = false;
+    }
   }
 }
