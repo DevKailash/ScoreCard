@@ -104,6 +104,6 @@ export class LoginPage implements OnInit {
     toast.present();
   }
   navigateToHome(){
-    this.router.navigate(['/weather']);
+    this.router.navigate(['/takePhoto']);
   }
 }

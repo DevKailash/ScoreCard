@@ -4,7 +4,8 @@ import { File} from '@ionic-native/file/ngx';
 import { DomSanitizer } from '@angular/platform-browser';
 import { WebView } from '@ionic-native/ionic-webview/ngx'
 import { AlertController } from '@ionic/angular';
-import { AngularCropperjsComponent } from 'angular-cropperjs';
+import * as moment from 'moment';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-take-photo',
@@ -12,120 +13,61 @@ import { AngularCropperjsComponent } from 'angular-cropperjs';
   styleUrls: ['./take-photo.page.scss'],
 })
 export class TakePhotoPage implements OnInit {
-  @ViewChild('angularCropper') public angularCropper: AngularCropperjsComponent;
-  cropperOptions: any;
-  croppedImage = null;
-
-  myImage = null;
-  scaleValX = 1;
-  scaleValY = 1;
-
+  galleryType = 'regular';
+  base64Img:any;
+  currentDate;
   imageUrl:any;
   storedDetails:any;
+  imgIndex:number= 0;
   constructor(private camera: Camera, 
     private file: File,
     private sanitizer: DomSanitizer,
-    private webview: WebView,public alertController: AlertController
+    private webview: WebView,public alertController: AlertController,
+    private router: Router,
     ) { 
-      this.cropperOptions = {
-        dragMode: 'crop',
-        aspectRatio: 1,
-        autoCrop: true,
-        movable: true,
-        zoomable: true,
-        scalable: true,
-        autoCropArea: 0.8,
-      };
     }
-
+    // Getting current date and gallery last array index
   ngOnInit() {
-    this.storedDetails = window.localStorage.getItem("storedImg");
-    if(this.storedDetails){
-      this.storedDetails = JSON.parse(this.storedDetails);
-      let fullPath = this.storedDetails.url+this.storedDetails.name;
-      this.viewImg(fullPath);
-    }
+    this.currentDate =  moment().format('DD-MMM-YY');
+    try{this.imgIndex = JSON.parse(window.localStorage.getItem('imgIndex'))}catch(err){this.imgIndex = 0;}
   }
-// After take picture close and reopen the application also will remove the already take picture.
-  async accessCamera(){
-    this.storedDetails = window.localStorage.getItem("storedImg");
-    if(this.storedDetails){
-      this.storedDetails = JSON.parse(this.storedDetails);
-      this.deleteImg(this.storedDetails.url,this.storedDetails.name);
-    }else{
-      this.openCamera();
-    }    
-  }
+  // open camera and take picture with img formate of base64 
   async openCamera(){
-    //open camera and take picture
     this.imageUrl = '';
     const options: CameraOptions = {
       quality: 50,
-      saveToPhotoAlbum: true,
+      // saveToPhotoAlbum: true,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
     }
     this.camera.getPicture(options).then((imageData) => {
-      this.myImage = 'data:image/jpeg;base64,' + imageData;
-        // const filename = imageData.substring(imageData.lastIndexOf('/')+1);
-        // const path =  imageData.substring(0,imageData.lastIndexOf('/')+1);
-        // const fullPath = path+filename;
-        // this.viewImg(fullPath);
-        //   let storedPhoto = {
-        //     url: path,
-        //     name: filename
-        //   }
-        //   window.localStorage.setItem("storedImg",JSON.stringify(storedPhoto));
+      let formatedData;
+      this.base64Img = 'data:image/jpeg;base64,' + imageData;
+      formatedData = {
+        id:this.imgIndex+1,
+        imageData: this.base64Img,
+        imageName: 'img-'+this.imgIndex+1+'-'+this.currentDate,
+        date:this.currentDate 
+      }
+      this.redirectToGallery(formatedData);
     }, (err) => {
     }); 
   }
-
-  reset() {
-    this.angularCropper.cropper.reset();
-  }
-
-  clear() {
-    this.angularCropper.cropper.clear();
-  }
-
-  rotate() {
-    this.angularCropper.cropper.rotate(90);
-  }
-
-  zoom(zoomIn: boolean) {
-    let factor = zoomIn ? 0.1 : -0.1;
-    this.angularCropper.cropper.zoom(factor);
-  }
-
-  scaleX() {
-    this.scaleValX = this.scaleValX * -1;
-    this.angularCropper.cropper.scaleX(this.scaleValX);
-  }
-
-  scaleY() {
-    this.scaleValY = this.scaleValY * -1;
-    this.angularCropper.cropper.scaleY(this.scaleValY);
-  }
-
-  move(x, y) {
-    this.angularCropper.cropper.move(x, y);
-  }
-
-  save() {
-    let croppedImgB64String: string = this.angularCropper.cropper.getCroppedCanvas().toDataURL('image/jpeg', (100 / 100));
-    this.croppedImage = croppedImgB64String;
+  // page redirect to gallery page
+  redirectToGallery(formatedData){
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        camera: JSON.stringify(formatedData)
+      }
+    };
+    this.router.navigate(['/gallery'], navigationExtras);
   }
 
   viewImg(path){
     //view file uri image
     const resolvedImg = this.webview.convertFileSrc(path);
     this.imageUrl = this.sanitizer.bypassSecurityTrustUrl(resolvedImg);
-  }
-  deleteImg(filepath, fileName) {
-    // Removing img from application catch;
-    this.file.removeFile(filepath, fileName);
-    this.openCamera();
   }
   
 }

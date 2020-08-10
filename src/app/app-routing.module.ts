@@ -24,7 +24,11 @@ const routes: Routes = [
     path: 'takePhoto',
     // outlet: 'one',
     loadChildren: () => import('./take-photo/take-photo.module').then( m => m.TakePhotoPageModule)
+  },  {
+    path: 'gallery',
+    loadChildren: () => import('./gallery/gallery.module').then( m => m.GalleryPageModule)
   },
+
 ];
 
 @NgModule({

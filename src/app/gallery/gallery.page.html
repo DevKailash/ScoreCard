@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>gallery</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="backToTakePhoto()">back</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="4" size-sm='6' size-md='4' *ngFor="let img of imgDetails">
+        <ion-card>
+          <img [src]="img.imageData" style="width: 100%;" />
+          <ion-card-header>
+            <ion-card-subtitle>{{img.imageName}}</ion-card-subtitle>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
