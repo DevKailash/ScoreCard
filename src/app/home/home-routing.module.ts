@@ -12,12 +12,12 @@ const routes: Routes = [
             outlet: 'one',
             loadChildren: () => import('../weather/weather.module').then( m => m.WeatherPageModule)
         },
-        {
-            path: 'two',
-            outlet: 'two',
-            loadChildren: () => import('../take-photo/take-photo.module').then( m => m.TakePhotoPageModule)
+        // {
+        //     path: 'two',
+        //     outlet: 'two',
+        //     loadChildren: () => import('../take-photo/take-photo.module').then( m => m.TakePhotoPageModule)
 
-        },
+        // },
         {
             path: 'three',
             outlet: 'three',

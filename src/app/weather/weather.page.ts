@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { ToastController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
-import { AngularFireAnalytics } from '@angular/fire/analytics';
+import { Platform } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { FirebaseAnalytics } from '@ionic-native/firebase-analytics/ngx';
 
 @Component({
   selector: 'app-weather',
@@ -35,15 +37,34 @@ export class WeatherPage implements OnInit {
     name:''
   };
   localWeather:any = [];
+  selectedCityName = '';
+  modelDdetails:any;
   constructor(private weather:ApiService,public toast: ToastController,
-    public alertController: AlertController, private fireFnalytics:AngularFireAnalytics) { }
+    public alertController: AlertController, private platform: Platform,
+    private router: Router,
+     private nativeFirebaseAnalytics:FirebaseAnalytics
+  ) { }
 
   ngOnInit() {
+    this.platform.ready().then(() => {
+      this.nativeFirebaseAnalytics.setUserId("123123");
+      this.nativeFirebaseAnalytics.setUserProperty("Weather","Feedback");
+    });
+    
     if(!this.type){
       this.callLocaldata();
     }else{
-      this.searchWeather('bangalore');
+      this.searchWeather('bangalore','user');
     }
+    this.platform.resume.subscribe(async () => {
+      try{
+        this.selectedCityName = window.localStorage.getItem('selectedCity');
+      }catch(err){}
+      // alert('Resume event detected: '+this.selectedCityName);
+      if(this.selectedCityName){
+        this.searchWeather(this.selectedCityName,'resume');
+      }
+    });
   }
   async callLocaldata(){
     await this.weather.getlocalWeather('weather')
@@ -61,8 +82,8 @@ export class WeatherPage implements OnInit {
   searchInLocal(name){
     this.localWeather.forEach(element => {
       if(name === element.city){
-        console.log(element);
         this.formate(element,'old');
+        this.selectedCity(name);
       }
     });
   }
@@ -70,20 +91,23 @@ export class WeatherPage implements OnInit {
     getLocalData(){
       return JSON.parse(window.localStorage.getItem('saved'));
     }
-    // Call weather API to get weathwe details
-    async searchWeather(place) {
-        
+    // Call weather API to get weather details
+    async searchWeather(place,type) {
+        this.selectedCity(place);
         this.weather.getWeatherDetails(place).subscribe((res: any) => {
-          this.formate(this.setWeatherData(res),'api');
-          console.log(this.WeatherData);
+          if(type == 'resume'){
+            this.formate(this.setWeatherData(res),'resume');
+          }else{this.formate(this.setWeatherData(res),'api');}
+          
         },
         err => {
           console.log('searchWeather:',err);
-          // this.toaster.openSnackBar("incorrect location",'Ok');
           this.alertMessage("Incorrect location");
         });
     }
-    
+    selectedCity(city){
+      window.localStorage.setItem('selectedCity',city);
+    }
   // formatting the weather details common function
     setWeatherData(data){
       let details = data;
@@ -101,6 +125,21 @@ export class WeatherPage implements OnInit {
       return details;
     }
     formate(data, way){
+      if(way == 'resume'){
+        this.modelDdetails = {
+          temp_celcius : data.temp_celcius,
+          temp_min: data.temp_min,
+          temp_max: data.temp_max,
+          name:data.name,
+          weatherDes: data.weatherDes,
+          tdate:data.tdate,
+          weatherIcon: data.weatherIcon
+        }
+        this.presentAlertConfirm(this.modelDdetails);
+        // alert(JSON.stringify(this.modelDdetails));
+        return;
+      }
+
       if(way == 'api'){
         this.weatherShowData = {
           temp_celcius : data.temp_celcius,
@@ -121,7 +160,7 @@ export class WeatherPage implements OnInit {
           tdate:new Date(),
           weatherIcon: ((data.weatherP > 25) ? "Sunny":"snow")
         }
-        console.log((data.weatherP > 25),(data.weatherP > 25) ? "Sunny":"snow");
+        // console.log((data.weatherP > 25),(data.weatherP > 25) ? "Sunny":"snow");
       }      
     }
     setIcons(icon){
@@ -172,19 +211,46 @@ export class WeatherPage implements OnInit {
   
       await alert.present();
     }
+
     fireBase(fb){
-      // Track an event with default events and params
-      // const eventParams = {};
-      // eventParams[this.fireFnalytics.DEFAULT_PARAMS.LEVEL] = 29;
-      // this.fireFnalytics.logEvent(this.fireFnalytics.DEFAULT_EVENTS.LEVEL_UP, eventParams)
-      //   .then(() => console.log('Event successfully tracked'))
-      //   .catch(err => console.log('Error tracking event:', err));
-      console.log("fire calling");
+      console.log("fire calling:",fb);
       // Track an event with custom events and params
-      const eventParams = {};
-      eventParams[fb] = 29;
-      this.fireFnalytics.logEvent('feedback-event', eventParams)
-        .then(() => console.log('Event successfully tracked'))
-        .catch(err => console.log('Error tracking event:', err));
-      }
+      // this.fireFnalytics.logEvent('feedback-event', {status:fb})
+      //   .then(() => this.alertMessage('Thank you for your feedback!'))
+      //   .catch(err => this.alertMessage(err));
+
+        this.nativeFirebaseAnalytics.logEvent('my_event', {param1: fb})
+          .then((res: any) => this.alertMessage('Thank you for your feedback!'))
+          .catch((error: any) => this.alertMessage(error));
+    }
+
+
+    camera(){
+      this.router.navigate(['/takePhoto']);
+    }
+    async presentAlertConfirm(data) {
+      const alert = await this.alertController.create({
+        cssClass: 'my-custom-class',
+        header: 'New!',
+        subHeader: 'Do you want to update?',
+        message: 'Current weather <strong>'+data.temp_celcius+'°</strong>!!!',
+        buttons: [
+          {
+            text: 'Cancel',
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: (blah) => {
+              console.log('Confirm Cancel: blah');
+            }
+          }, {
+            text: 'Okay',
+            handler: () => {
+              this.weatherShowData = data;
+              this.alertMessage("Status updated!");
+            }
+          }
+        ]
+      });
+      await alert.present();
+  }
 }

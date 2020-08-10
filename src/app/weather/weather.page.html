@@ -5,6 +5,9 @@
       <ion-button (click)="presentAlert('The app will give you local and real time weather details!')">
         <ion-icon slot="icon-only" name="alert" ></ion-icon>
       </ion-button>
+      <ion-button  (click)="camera()">
+        <ion-icon slot="icon-only" name="camera-outline" ></ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -17,7 +20,7 @@
     </ion-item>
     <ion-item *ngIf="type">
       <ion-input type="text" placeholder="place" [(ngModel)]="searchPlace"></ion-input>
-      <ion-button item-right (click)="searchWeather(searchPlace)">Search</ion-button>
+      <ion-button item-right (click)="searchWeather(searchPlace,'user')">Search</ion-button>
     </ion-item>
     <ion-item *ngIf="!type">
       <ion-label>Local</ion-label>
@@ -39,24 +42,36 @@
       </ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <ion-icon name="calendar"></ion-icon> {{weatherShowData.tdate | date}}
+      <ion-grid style="padding: 0;">
+        <ion-row>
+          <ion-col>
+            <ion-icon name="calendar"></ion-icon> {{weatherShowData.tdate | date}}
+          </ion-col>
+          <ion-col style="position: relative;">
+            <div class="feedback">
+              <div><ion-card-subtitle>Feedback</ion-card-subtitle></div>
+              <ion-buttons>
+                <ion-button (click)="fireBase('good')">
+                  <ion-icon slot="icon-only" name="happy-outline"></ion-icon>
+                </ion-button>
+                <ion-button (click)="fireBase('bad')">
+                  <ion-icon slot="icon-only" name="sad-outline"></ion-icon>
+                </ion-button>
+              </ion-buttons>  
+            </div>
+                    
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-card-content>
   </ion-card>
-  <ion-card>
+  <!-- <ion-card>
     <ion-card-header>
-      <ion-card-subtitle>Feedback</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
       
-      <ion-buttons slot="end">
-        <ion-button (click)="fireBase('good')">
-          <ion-icon slot="icon-only" name="happy-outline"></ion-icon>
-        </ion-button>
-        <ion-button (click)="fireBase('bad')">
-          <ion-icon slot="icon-only" name="sad-outline"></ion-icon>
-        </ion-button>
-      </ion-buttons>
+     
       
     </ion-card-content>
-  </ion-card>
+  </ion-card> -->
 </ion-content>

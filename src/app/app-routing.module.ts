@@ -20,6 +20,11 @@ const routes: Routes = [
     // outlet: 'one',
     loadChildren: () => import('./weather/weather.module').then( m => m.WeatherPageModule)
   },
+  {
+    path: 'takePhoto',
+    // outlet: 'one',
+    loadChildren: () => import('./take-photo/take-photo.module').then( m => m.TakePhotoPageModule)
+  },
 ];
 
 @NgModule({

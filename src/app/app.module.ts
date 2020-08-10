@@ -13,12 +13,14 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Camera } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
+import { FirebaseAnalytics } from '@ionic-native/firebase-analytics/ngx';
 
 import { MaterialModule } from './material.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { environment } from 'src/environments/environment';
-import { AngularFireAnalyticsModule, UserTrackingService } from '@angular/fire/analytics';
+import { AngularCropperjsModule } from 'angular-cropperjs';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,7 +34,7 @@ import { AngularFireAnalyticsModule, UserTrackingService } from '@angular/fire/a
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
-    AngularFireAnalyticsModule
+    AngularCropperjsModule    
   ],
   providers: [
     StatusBar,
@@ -41,7 +43,8 @@ import { AngularFireAnalyticsModule, UserTrackingService } from '@angular/fire/a
     Camera,
     File,
     WebView,
-    UserTrackingService
+    FirebaseAnalytics
+    // UserTrackingService
   ],
   bootstrap: [AppComponent]
 })
