@@ -18,7 +18,6 @@ export class TakePhotoPage implements OnInit {
   currentDate;
   imageUrl:any;
   storedDetails:any;
-  imgIndex:number= 0;
   constructor(private camera: Camera, 
     private file: File,
     private sanitizer: DomSanitizer,
@@ -29,7 +28,6 @@ export class TakePhotoPage implements OnInit {
     // Getting current date and gallery last array index
   ngOnInit() {
     this.currentDate =  moment().format('DD-MMM-YY');
-    try{this.imgIndex = JSON.parse(window.localStorage.getItem('imgIndex'))}catch(err){this.imgIndex = 0;}
   }
   // open camera and take picture with img formate of base64 
   async openCamera(){
@@ -40,14 +38,14 @@ export class TakePhotoPage implements OnInit {
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
+      targetWidth: 600,
+      correctOrientation: true
     }
     this.camera.getPicture(options).then((imageData) => {
       let formatedData;
       this.base64Img = 'data:image/jpeg;base64,' + imageData;
       formatedData = {
-        id:this.imgIndex+1,
         imageData: this.base64Img,
-        imageName: 'img-'+this.imgIndex+1+'-'+this.currentDate,
         date:this.currentDate 
       }
       this.redirectToGallery(formatedData);

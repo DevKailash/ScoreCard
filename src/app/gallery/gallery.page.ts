@@ -24,13 +24,15 @@ export class GalleryPage implements OnInit {
       gallery = JSON.parse(window.localStorage.getItem("gallery"));
     }catch(err){}
     if(!gallery){
+      cameraData.imageName = 'img-1_'+ cameraData.date;
+      cameraData.id = 1;
       this.imgDetails.push(cameraData);
-      window.localStorage.setItem('imgIndex','1');
     }else{
       let len = gallery.length;
+      cameraData.imageName = 'img-'+(len+1)+"_"+ cameraData.date;
+      cameraData.id = (len+1);
       this.imgDetails = gallery;
       this.imgDetails.push(cameraData);
-      window.localStorage.setItem('imgIndex',JSON.stringify(len+1));
     }
     window.localStorage.setItem('gallery', JSON.stringify(this.imgDetails));
   }
