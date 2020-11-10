@@ -8,23 +8,31 @@
 </ion-header>
 
 <ion-content padding>
-  <div class="flexCenter">
-    <button mat-fab color="primary" (click)="openCamera()" aria-label="take photo">
+  <!-- <div class="flexCenter">
+    <button mat-fab color="primary" (click)="selectImage()"  aria-label="take photo">
       <span class="material-icons">
         add_a_photo
       </span>
     </button>
-  </div>
-  <!-- <mat-card>
-    <div *ngIf="!imageUrl">No data available</div>
-    <img *ngIf="imageUrl" [src]="imageUrl" style="width: auto;">
-  </mat-card> -->
+    <button mat-fab color="primary" >Crop Image</button>
+  </div> -->
+  <mat-card>
+    <div *ngIf="!croppedImagepath">No data available</div>
+    <img *ngIf="croppedImagepath" [src]="croppedImagepath" style="width: auto;">
+  </mat-card>
 
   <!-- fab placed to the bottom end -->
-  <!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="accessCamera()">
-      <ion-icon name="camera"></ion-icon>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="goSlider()">
+      <ion-icon name="albums"></ion-icon>
     </ion-fab-button>
-  </ion-fab> -->
+  </ion-fab>
+  <ion-fab vertical="bottom" horizontal="center" vertical="bottom" slot="fixed">
+    <ion-fab-button (click)="selectImage()">
+      <span class="material-icons">
+        add_a_photo
+      </span>
+    </ion-fab-button>
+  </ion-fab>
   
 </ion-content>

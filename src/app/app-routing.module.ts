@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuardService } from './services/auth-guard.service';
 
 const routes: Routes = [
   {
@@ -8,7 +9,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'home',
     pathMatch: 'full'
   },
   {
@@ -22,12 +23,27 @@ const routes: Routes = [
   },
   {
     path: 'takePhoto',
+    // canActivate:[AuthGuardService],
     // outlet: 'one',
     loadChildren: () => import('./take-photo/take-photo.module').then( m => m.TakePhotoPageModule)
-  },  {
+  },
+  {
     path: 'gallery',
     loadChildren: () => import('./gallery/gallery.module').then( m => m.GalleryPageModule)
   },
+  {
+    path: 'slider',
+    loadChildren: () => import('./slider/slider.module').then( m => m.SliderPageModule)
+  },
+  {
+    path: 'stepper',
+    loadChildren: () => import('./pages/stepper/stepper.module').then( m => m.StepperPageModule)
+  },
+  {
+    path: 'camera-priview',
+    loadChildren: () => import('./camera-priview/camera-priview.module').then( m => m.CameraPriviewPageModule)
+  },
+
 
 ];
 

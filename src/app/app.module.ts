@@ -20,7 +20,9 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { environment } from 'src/environments/environment';
 import { AngularCropperjsModule } from 'angular-cropperjs';
-
+import { AuthGuardService } from './services/auth-guard.service';
+import { Crop } from '@ionic-native/crop/ngx';
+import { CameraPreview } from '@ionic-native/camera-preview/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,7 +36,7 @@ import { AngularCropperjsModule } from 'angular-cropperjs';
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
-    AngularCropperjsModule    
+    AngularCropperjsModule   
   ],
   providers: [
     StatusBar,
@@ -42,8 +44,11 @@ import { AngularCropperjsModule } from 'angular-cropperjs';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     Camera,
     File,
+    Crop,
+    CameraPreview,
     WebView,
-    FirebaseAnalytics
+    FirebaseAnalytics,
+    AuthGuardService
     // UserTrackingService
   ],
   bootstrap: [AppComponent]

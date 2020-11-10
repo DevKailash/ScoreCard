@@ -41,3 +41,19 @@ ion-tab-bar{
     color: white;
   }
 }
+.Crow{
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  ion-col{
+    height: 20%;
+    background: #414345;
+    color: #FBC02D;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px;
+    border-radius: 8px;
+  }
+}

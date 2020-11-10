@@ -1,0 +1,17 @@
+.CustomSlider{
+    margin-top: 20px;
+    .offer{
+        font-size: 28px;
+        padding: 10px;
+    }
+    .bestoffer{
+        padding: 10px;
+    }
+}
+ion-slides {
+    height: 50%;
+    ion-card{
+        // background-color: gray;
+        border-radius: 12px;
+    }
+}

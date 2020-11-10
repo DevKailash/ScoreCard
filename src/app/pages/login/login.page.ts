@@ -89,6 +89,7 @@ export class LoginPage implements OnInit {
     await this.AngAuth.signInWithEmailAndPassword(this.user.email, this.user.password)
     .then((res: any) =>{
       console.log(res);
+      localStorage.setItem('accesstoken',res.user.uid)
       loading.dismiss();
       this.alertMessage("Login Success");
       this.navigateToHome();
@@ -104,6 +105,6 @@ export class LoginPage implements OnInit {
     toast.present();
   }
   navigateToHome(){
-    this.router.navigate(['/takePhoto']);
+    this.router.navigate(['/takePhoto'],{replaceUrl: true});
   }
 }

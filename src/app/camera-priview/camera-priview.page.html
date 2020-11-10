@@ -1,0 +1,49 @@
+<!-- home.page.html -->
+
+<ion-content [fullscreen]="true" class="custom-ion-content">
+  <div class="OverlayImg">
+    <div class="borderDiv"></div>
+  </div>
+  <ion-row>
+    <ion-col>
+      <div id="cameraPreview" class="cameraPreview"></div>
+    </ion-col>
+  </ion-row>
+  <ion-grid>
+   
+    <ion-row *ngIf="takenImge">
+      <ion-col>
+        <img [src]="takenImge">
+      </ion-col>
+    </ion-row>
+    <img id="cropeIm" src="assets/img/2.jpg">
+  </ion-grid>
+  <div class="cameraButtons">
+    <ion-row>
+      <ion-col>
+        <ion-range min="1" max="40" pin color="danger" [(ngModel)]="setZoom" (ionChange)="changeZoom()">
+          <ion-icon slot="start" size="small" name="search-outline" style="color: white;"></ion-icon>
+          <ion-icon slot="end" name="search-outline" style="color: white;"></ion-icon>
+        </ion-range>
+        <ion-button (click)="cropeImg()">Crope</ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button color="dark" (click)="retakeImge()">
+          Retake
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button color="danger" (click)="takePicture()" class="take">
+          <ion-icon name="camera-outline"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button color="dark" (click)="switchCamera()">
+          Switch
+        </ion-button>
+      </ion-col>
+    </ion-row>    
+  </div>
+</ion-content>
