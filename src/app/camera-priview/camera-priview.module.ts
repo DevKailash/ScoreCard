@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { CameraPriviewPageRoutingModule } from './camera-priview-routing.module';
 
 import { CameraPriviewPage } from './camera-priview.page';
+import { InstructionComponent } from './instruction/instruction.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CameraPriviewPageRoutingModule
+    CameraPriviewPageRoutingModule,
   ],
-  declarations: [CameraPriviewPage]
+  declarations: [CameraPriviewPage,InstructionComponent],
+  entryComponents: [ InstructionComponent ]
 })
 export class CameraPriviewPageModule {}

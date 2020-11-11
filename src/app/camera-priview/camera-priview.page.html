@@ -1,37 +1,48 @@
 <!-- home.page.html -->
 
 <ion-content [fullscreen]="true" class="custom-ion-content">
-  <div class="OverlayImg">
-    <div class="borderDiv"></div>
+  <ion-fab horizontal="end" vertical="top" slot="fixed" *ngIf="!takenImge">
+    <ion-fab-button size="small" class="instruction" color="dark" (click)="presentPopover($event)">
+      <ion-icon name="alert-outline" class="c_icon"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <div class="OverlayImg" *ngIf="!takenImge" id="div-1">
+    <div class="borderDiv" id="borderFrame"></div>
   </div>
-  <ion-row>
-    <ion-col>
-      <div id="cameraPreview" class="cameraPreview"></div>
-    </ion-col>
-  </ion-row>
   <ion-grid>
    
-    <ion-row *ngIf="takenImge">
-      <ion-col>
-        <img [src]="takenImge">
+    <ion-row *ngIf="takenImge" class="imgPreview">
+      <ion-col class="cardDiv">
+        <ion-card>
+          <img [src]="takenImge" id="croppingImg">
+          <ion-card-content>
+            <ion-row>
+              <ion-col><ion-button color="dark" (click)="retakeImge()">Retake</ion-button></ion-col>
+              <ion-col><ion-button color="dark">Done</ion-button></ion-col>
+            </ion-row>
+            
+          </ion-card-content>
+        </ion-card>
+        
       </ion-col>
-    </ion-row>
-    <img id="cropeIm" src="assets/img/2.jpg">
+    </ion-row>    
   </ion-grid>
+  <div class="cameraTitle" *ngIf="!takenImge">
+    Please place the chiller inside frame
+  </div>
   <div class="cameraButtons">
-    <ion-row>
-      <ion-col>
-        <ion-range min="1" max="40" pin color="danger" [(ngModel)]="setZoom" (ionChange)="changeZoom()">
-          <ion-icon slot="start" size="small" name="search-outline" style="color: white;"></ion-icon>
+    <!-- <ion-row *ngIf="!takenImge">
+      <ion-col class="zoomOption">
+        <ion-range min="1" max="10" pin color="danger" [(ngModel)]="setZoom" (ionChange)="changeZoom()">
+          <ion-icon slot="start" size="small" name="search-outline" style="color: white;" ></ion-icon>
           <ion-icon slot="end" name="search-outline" style="color: white;"></ion-icon>
         </ion-range>
-        <ion-button (click)="cropeImg()">Crope</ion-button>
       </ion-col>
-    </ion-row>
-    <ion-row>
+    </ion-row> -->
+    <ion-row *ngIf="!takenImge">
       <ion-col>
-        <ion-button color="dark" (click)="retakeImge()">
-          Retake
+        <ion-button color="dark">
+          <ion-icon name="chevron-back-circle-outline"></ion-icon>
         </ion-button>
       </ion-col>
       <ion-col>
@@ -41,7 +52,7 @@
       </ion-col>
       <ion-col>
         <ion-button color="dark" (click)="switchCamera()">
-          Switch
+          <ion-icon name="camera-reverse-outline"></ion-icon>
         </ion-button>
       </ion-col>
     </ion-row>    
